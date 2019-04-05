@@ -3,11 +3,11 @@
         <title>Index Page</title>  
     </head>  
     <body>  
-        <form action="/registration" method="post">  
+        <form action="/user/create" method="post">  
             <table>  
                 <tr>  
-                    <td><label for="user-name">User Name</label></td>  
-                    <td><input type="text" name="name"></input></td>  
+                    <td><label for="username">User Name</label></td>  
+                    <td><input type="text" name="username"></input></td>  
                 </tr>  
                 <tr>  
                     <td><label for="email">Email</label></td>  
@@ -16,6 +16,10 @@
                 <tr>  
                     <td><label for="password">Password</label></td>  
                     <td><input type="password" name="password"></input></td>  
+                </tr> 
+                <tr>  
+                    <td><label for="passwordConfirm">Confirm Password</label></td>  
+                    <td><input type="password" name="passwordConfirm"></input></td>  
                 </tr> 
                 <tr>  
                     <td></td>  

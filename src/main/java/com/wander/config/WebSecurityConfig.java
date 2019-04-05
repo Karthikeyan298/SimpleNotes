@@ -2,6 +2,7 @@ package com.wander.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,17 +24,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .antMatchers("/resources/**", "/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-            .logout()
-                .permitAll();
+    	
+
+    	http.authorizeRequests().antMatchers(HttpMethod.GET, "/user/**").permitAll()
+    	.antMatchers(HttpMethod.POST, "/user/**").permitAll().
+    	antMatchers(HttpMethod.GET, "/login").permitAll().and().formLogin().loginPage("/login").defaultSuccessUrl("/welcome").and().
+    	authorizeRequests().anyRequest().authenticated().and().
+        cors().and().
+//        TODO: Need to enable csrf headers and cors
+        csrf().disable();
     }
 
     @Bean

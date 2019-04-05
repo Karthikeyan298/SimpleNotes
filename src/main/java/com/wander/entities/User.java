@@ -4,10 +4,9 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
@@ -15,12 +14,8 @@ import org.springframework.data.annotation.Transient;
 @Entity
 @Table(name = "user")
 public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private int id;
 	
+	@Id
 	@Column(name = "email", unique = true)
 	private String email;
 	
@@ -29,19 +24,31 @@ public class User {
 	
 	@Transient
     private String passwordConfirm;
+	
+	@Column(name = "username", nullable=false)
+	private String username;
 
 	@ManyToMany
     private Set<Role> roles;
 	
-	@Column(name = "username")
-	private String username;
 
-	public int getId() {
-		return id;
+	@OneToMany
+	private Set<Note> notes; 
+	
+	public Set<Note> getNotes() {
+		return notes;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setNotes(Set<Note> notes) {
+		this.notes = notes;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getPassword() {
@@ -52,11 +59,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUserName(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -76,11 +83,4 @@ public class User {
 		this.passwordConfirm = passwordConfirm;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-		}
 }

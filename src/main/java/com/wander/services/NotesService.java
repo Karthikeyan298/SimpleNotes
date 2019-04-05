@@ -6,17 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wander.entities.Note;
+import com.wander.entities.User;
 import com.wander.exceptions.ResourceNotFoundException;
 import com.wander.repositories.NoteRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class NotesService {
 	
 	@Autowired
 	NoteRepository noteRepository;
 	
-
-    public Note addNotes(Note note) {
+	@Autowired
+	UserService userService;
+	
+    public Note addNotes(Note note, String email) {
+    	User user = userService.findByEmail(email);
+    	note.setUser(user);
 		return noteRepository.save(note);		
 	}
 	
@@ -28,6 +36,8 @@ public class NotesService {
         note.setDescription(noteDetails.getDescription());
 
         Note updatedNote = noteRepository.save(note);
+        log.debug("{} Note updated successfully", noteDetails.getTitle());
+        
         return updatedNote;		
 	}
 	
@@ -46,6 +56,10 @@ public class NotesService {
 	public Note findById(Long noteId) throws ResourceNotFoundException {
 		return noteRepository.findById(noteId)
 	            .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+	}
+	
+	public List<Note> findByUser(User user) {
+		return noteRepository.findByUser(user);
 	}
 	
 }

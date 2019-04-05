@@ -7,8 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.wander.entities.User;
+import com.wander.repositories.RoleRepository;
 import com.wander.repositories.UserRepository;
-import com.wander.repositories.RoleRepository;;
 
 @Service("userService")
 public class UserService {
@@ -16,10 +16,10 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private RoleRepository roleRepository;
-
-	@Autowired
+    @Autowired
+    private RoleRepository roleRepository;
+    
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
     @Autowired
@@ -33,7 +33,7 @@ public class UserService {
 	
 	public void saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.setRoles(new HashSet<>(roleRepository.findAll()));
 		userRepository.save(user);
 	}
 	

@@ -8,7 +8,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
@@ -24,6 +25,10 @@ public class Note {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name="email", nullable=false)
+	private User user;
 	
 	@NotBlank
 	private String title;
@@ -60,17 +65,24 @@ public class Note {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getCreatedTime() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedTime(Date createdTime) {
-		this.createdAt = createdTime;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
-	public Date getUpdatedTime() {
+	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-	public void setUpdatedTime(Date updatedTime) {
-		this.updatedAt = updatedTime;
+	public void setUpdatedAt(Date createdAt) {
+		this.updatedAt = createdAt;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

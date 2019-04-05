@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Home Page</title>
+</head>
+<body>
+	<h1>Hello !</h1>
+	<p>
+		Welcome to <span th:text="${appName}"></span>
+	</p>
+	<a href="/logout">LOGOUT</a>
+	<p>New Note:</p>
+	<form action="/notes/create" id="newNote" method="post">
+		Title: <input type="text" name="title"> Description: <input
+			type="text" name="description"> <input type="submit">
+	</form>
+
+	<p>
+		<strong>Old Notes</strong>
+	</p>
+	<table border=1>
+		<tr>
+			<td><strong>Title</strong></td>
+			<td><strong>Description</strong></td>
+			<td><strong>Created Time</strong></td>
+			<td><strong>Updated Time</strong></td>
+			<td><strong>Options</strong></td>
+		</tr>
+		<tr>
+		<tr th:each="note: ${notes}">
+			<form action="#" th:action="@{/notes/update/{id}(id=${note.id})}"
+				method="post">
+			<td><input type="text" th:value="${note.title}" name=title></td>
+			<td><input type="text" th:value="${note.description}" name=description></td>
+			<td th:text="${note.createdAt}" />
+			<td th:text="${note.updatedAt}" />
+			<td><input type="submit" value="Edit"> <input
+				th:formaction="@{/notes/delete/{id}(id=${note.id})}" type="submit"
+				value="Delete"></td>
+			</form>
+		</tr>
+	</table>
+
+</body>
+</html>
