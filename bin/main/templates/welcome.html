@@ -2,25 +2,35 @@
 <head>
 <title>Home Page</title>
 </head>
-<body>
+<body bgcolor="#76b852">
 	<h1>Hello !</h1>
 	<p>
 		Welcome to <span th:text="${appName}"></span>
 	</p>
 	<a href="/logout">LOGOUT</a>
-	<p>New Note:</p>
-	<form action="/notes/create" id="newNote" method="post">
-		Title: <input type="text" name="title"> Description: <input
-			type="text" name="description"> <input type="submit">
-	</form>
-
+	<h2><p>New Note:</p></h2>
+	<table>
+		<form action="/notes/create" name="newNote" id="newNote" method="post">
+			<tr>
+				<td>Title:</td>
+				<td><input type="text" name="title"></td>
+			</tr>
+			<tr>
+				<td>Description:</td>
+				<td><textarea rows="4" cols="50" type="text" name="description"></textarea></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Create"></td>
+			</tr>
+		</form>
+	</table>
 	<p>
-		<strong>Old Notes</strong>
+		<h2><strong>Old Notes:</strong></h2>
 	</p>
 	<table border=1>
-		<tr>
+		<tr bgcolor="#b3b3b3">
 			<td><strong>Title</strong></td>
-			<td><strong>Description</strong></td>
+			<td width="50%"><strong>Description</strong></td>
 			<td><strong>Created Time</strong></td>
 			<td><strong>Updated Time</strong></td>
 			<td><strong>Options</strong></td>
@@ -29,16 +39,26 @@
 		<tr th:each="note: ${notes}">
 			<form action="#" th:action="@{/notes/update/{id}(id=${note.id})}"
 				method="post">
-			<td><input type="text" th:value="${note.title}" name=title></td>
-			<td><input type="text" th:value="${note.description}" name=description></td>
-			<td th:text="${note.createdAt}" />
-			<td th:text="${note.updatedAt}" />
-			<td><input type="submit" value="Edit"> <input
-				th:formaction="@{/notes/delete/{id}(id=${note.id})}" type="submit"
-				value="Delete"></td>
+				<td><input type="text" th:value="${note.title}" name=title style="height:50"></td>
+				<td><textarea type="text" th:text="${note.description}"
+					name=description rows="3" cols="70"></textarea></td>
+				<td th:text="${note.createdAt}" />
+				<td th:text="${note.updatedAt}" />
+				<td><input type="submit" value="Edit"> <input
+					th:formaction="@{/notes/delete/{id}(id=${note.id})}" type="submit"
+					value="Delete"></td>
 			</form>
 		</tr>
 	</table>
 
 </body>
+<script>
+function validateForm() {
+	  var x = document.forms["newNote"]["title"].value;
+	  if (x == "") {
+	    alert("Name must be filled out");
+	    return false;
+	  }
+	}
+</script>
 </html>

@@ -30,10 +30,8 @@ public class Note {
 	@JoinColumn(name="email", nullable=false)
 	private User user;
 	
-	@NotBlank
 	private String title;
 	
-	@NotBlank
 	private String description;
 	
 	@Column(nullable=false, updatable = false)

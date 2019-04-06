@@ -37,7 +37,7 @@ public class UserController {
 		} catch (InvalidUserDetailsException e) {
 			e.printStackTrace();
 			redir.addFlashAttribute("flashAttr",e.getErrorMsg());
-	        return "redirect:/register";
+	        return "redirect:/user/register";
 		}
 	}
 

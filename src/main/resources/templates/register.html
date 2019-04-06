@@ -1,36 +1,29 @@
-<html lang="en">  
-    <head>  
-        <title>Index Page</title>  
-    </head>  
-    <body>  
-        <form action="/user/create" method="post">  
-            <table>  
-                <tr>  
-                    <td><label for="username">User Name</label></td>  
-                    <td><input type="text" name="username"></input></td>  
-                </tr>  
-                <tr>  
-                    <td><label for="email">Email</label></td>  
-                    <td><input type="text" name="email"></input></td>  
-                </tr>  
-                <tr>  
-                    <td><label for="password">Password</label></td>  
-                    <td><input type="password" name="password"></input></td>  
-                </tr> 
-                <tr>  
-                    <td><label for="passwordConfirm">Confirm Password</label></td>  
-                    <td><input type="password" name="passwordConfirm"></input></td>  
-                </tr> 
-                <tr>  
-                    <td></td>  
-                    <td><input type="submit" value="Submit"></input></td>  
-                </tr>  
-                <tr>
-                <td>
-                <span th:text="${error}"></span>
-                </td>
-                </tr>
-            </table>  
-        </form>  
-    </body>  
-</html> 
+<html lang="en">
+<head>
+<title>Index Page</title>
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<script>
+		$('.message a').click(function() {
+			$('form').animate({
+				height : "toggle",
+				opacity : "toggle"
+			}, "slow");
+		});
+	</script>
+	<div class="login-page">
+		<div class="form">
+			<form class="login-form" name="userForm" action="/user/create" method="post">
+				<input type="text" placeholder="username" name="username" /> <input
+					type="password" placeholder="password" name="password" /> <input
+					type="password" placeholder="Confirm password"
+					name="confirmPassword" /> <input type="text" placeholder="Email"
+					name="email">
+				<button type="submit">Sign Up</button>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

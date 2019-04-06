@@ -28,7 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     	http.authorizeRequests().antMatchers(HttpMethod.GET, "/user/**").permitAll()
     	.antMatchers(HttpMethod.POST, "/user/**").permitAll().
-    	antMatchers(HttpMethod.GET, "/login").permitAll().and().formLogin().loginPage("/login").defaultSuccessUrl("/welcome").and().
+    	antMatchers(HttpMethod.GET, "/login").permitAll().
+    	antMatchers("/css/**", "/js/**").permitAll()
+    	.and().formLogin().loginPage("/login").defaultSuccessUrl("/welcome").and().
     	authorizeRequests().anyRequest().authenticated().and().
         cors().and().
 //        TODO: Need to enable csrf headers and cors
