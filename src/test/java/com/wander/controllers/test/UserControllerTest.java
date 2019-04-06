@@ -69,28 +69,28 @@ public class UserControllerTest {
 		this.mockMvc
 				.perform(post("/user/create").param("email", "1234@gmail.com").param("password", "12345678")
 						.param("passwordConfirm", "12345678").sessionAttr("userForm", new User()))
-				.andExpect(redirectedUrl("/register"));
+				.andExpect(redirectedUrl("/user/register"));
 	}
 
 	@Test
 	public void userCreateWithShortPasswordTest() throws Exception {
 		this.mockMvc.perform(post("/user/create").param("username", "abcdesdsdfgh").param("email", "12344@gmail.com")
 				.param("password", "12345").param("passwordConfirm", "12345").sessionAttr("userForm", new User()))
-				.andExpect(redirectedUrl("/register"));
+				.andExpect(redirectedUrl("/user/register"));
 	}
 
 	@Test
 	public void userCreateWithWrongConfirmPasswordTest() throws Exception {
 		this.mockMvc.perform(post("/user/create").param("username", "abcdesdsdfgh").param("email", "12344@gmail.com")
 				.param("password", "12345678").param("passwordConfirm", "12345679").sessionAttr("userForm", new User()))
-				.andExpect(redirectedUrl("/register"));
+				.andExpect(redirectedUrl("/user/register"));
 	}
 
 	@Test
 	public void userCreateWithInvalidEmailIdTest() throws Exception {
 		this.mockMvc.perform(post("/user/create").param("username", "abcdesdsdfgh").param("email", "12344")
 				.param("password", "12345678").param("passwordConfirm", "12345679").sessionAttr("userForm", new User()))
-				.andExpect(redirectedUrl("/register"));
+				.andExpect(redirectedUrl("/user/register"));
 	}
 
 	@Test
