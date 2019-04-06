@@ -5,4 +5,4 @@
  * @author karthikeyan
  *
  */
-package com.wander.test.services;
+package com.wander.controllers.test;

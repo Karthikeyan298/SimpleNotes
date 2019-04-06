@@ -15,16 +15,4 @@ public class ResourceNotFoundException extends Exception {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
     }
-
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public Object getFieldValue() {
-        return fieldValue;
-    }
 }

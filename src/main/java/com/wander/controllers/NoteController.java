@@ -33,6 +33,7 @@ public class NoteController {
 	@PostMapping(value="/notes/create")
     public String addNotes(@ModelAttribute("newNote") Note newNote, BindingResult bindingResult) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth);
 		String email = auth.getName();
 		log.info("Current user email: {}", email);
 		
@@ -48,9 +49,13 @@ public class NoteController {
 	}
 	
 	@PostMapping(value="/notes/delete/{id}")
-    public String deleteNotes(@PathVariable(value = "id") Long noteId) throws ResourceNotFoundException {
-		if (notesService.deleteNotes(noteId) == "success") {
-			return "redirect:/welcome";
+    public String deleteNotes(@PathVariable(value = "id") Long noteId) {
+		
+		try {
+			notesService.deleteNotes(noteId);
+		}
+		catch (ResourceNotFoundException e) {
+			log.error("Unable to find the resourceId {}", noteId);
 		}
 		return "redirect:/welcome";		
 	}
