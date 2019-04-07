@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class NotesService {
+public class NoteServiceImpl implements NoteService{
 	
 	@Autowired
 	NoteRepository noteRepository;
 	
 	@Autowired
-	UserService userService;
+	UserServiceImpl userService;
 	
     public Note addNotes(Note note, String email) {
     	User user = userService.findByEmail(email);

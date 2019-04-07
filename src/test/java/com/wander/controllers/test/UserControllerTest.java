@@ -17,7 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.wander.controllers.UserController;
 import com.wander.entities.User;
-import com.wander.services.UserService;
+import com.wander.services.UserServiceImpl;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,7 +33,7 @@ public class UserControllerTest {
 	UserController userController;
 
 	@Mock
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@Autowired
 	private WebApplicationContext context;

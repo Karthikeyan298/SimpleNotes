@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.wander.entities.User;
 import com.wander.repositories.RoleRepository;
 import com.wander.repositories.UserRepository;
-import com.wander.services.UserService;
+import com.wander.services.UserServiceImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -22,9 +22,9 @@ import static org.mockito.Mockito.*;
 public class UserServiceTest {
 
 	@InjectMocks
-	UserService userService;
+	UserServiceImpl userService;
 
-	UserService userServiceSpy;
+	UserServiceImpl userServiceSpy;
 
 
 	@Mock
