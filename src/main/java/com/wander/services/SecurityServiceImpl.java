@@ -9,15 +9,26 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The Class SecurityServiceImpl.
+ */
 @Service
+
+/** The Constant log. */
 @Slf4j
 public class SecurityServiceImpl implements SecurityService{
+    
+    /** The authentication manager. */
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /** The user details service. */
     @Autowired
     private UserDetailsService userDetailsService;
 
+    /* (non-Javadoc)
+     * @see com.wander.services.SecurityService#findLoggedInUsername()
+     */
     @Override
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();

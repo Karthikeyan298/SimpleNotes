@@ -20,16 +20,30 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+/**
+ * The Class NoteController.
+ */
 @Controller
+
+/** The Constant log. */
 @Slf4j
 public class NoteController {
 	
+	/** The notes service. */
 	@Autowired
 	NoteServiceImpl notesService;
 	
+	/** The user service. */
 	@Autowired
 	UserServiceImpl userService;
 
+	/**
+	 * Adds the notes.
+	 *
+	 * @param newNote the new note
+	 * @param bindingResult the binding result
+	 * @return the string
+	 */
 	@PostMapping(value="/notes/create")
     public String addNotes(@ModelAttribute("newNote") Note newNote, BindingResult bindingResult) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -41,6 +55,14 @@ public class NoteController {
 		return "redirect:/welcome";		
 	}
 	
+	/**
+	 * Update notes.
+	 *
+	 * @param noteId the note id
+	 * @param note the note
+	 * @return the string
+	 * @throws ResourceNotFoundException the resource not found exception
+	 */
 	@PostMapping(value="/notes/update/{id}")
     public String updateNotes(@PathVariable(value = "id") Long noteId,
     		@ModelAttribute("note") Note note) throws ResourceNotFoundException {
@@ -48,6 +70,12 @@ public class NoteController {
 		return "redirect:/welcome";		
 	}
 	
+	/**
+	 * Delete notes.
+	 *
+	 * @param noteId the note id
+	 * @return the string
+	 */
 	@PostMapping(value="/notes/delete/{id}")
     public String deleteNotes(@PathVariable(value = "id") Long noteId) {
 		
@@ -60,6 +88,12 @@ public class NoteController {
 		return "redirect:/welcome";		
 	}
 	
+	/**
+	 * Welcome.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -35,6 +35,9 @@ import com.wander.services.UserServiceImpl;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * The Class NoteControllerTest.
+ */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
@@ -43,20 +46,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Sql(executionPhase = ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:afterTest.sql")})
 public class NoteControllerTest {
 
+	/** The Note controller. */
 	@InjectMocks
 	NoteController NoteController;
 
+	/** The note service. */
 	@Mock
 	private NoteServiceImpl noteService;
 	
+	/** The user service. */
 	@Mock
 	private UserServiceImpl userService;
 
+	/** The context. */
 	@Autowired
 	private WebApplicationContext context;
 
+	/** The mock mvc. */
 	private MockMvc mockMvc;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity())
@@ -64,11 +75,21 @@ public class NoteControllerTest {
 		
 	}
 	
+	/**
+	 * Should redirect to login page.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void shouldRedirectToLoginPage() throws Exception {
 		this.mockMvc.perform(get("/welcome")).andExpect(redirectedUrl("http://localhost/login"));
 	}
 	
+	/**
+	 * Should create note.
+	 *
+	 * @throws Exception the exception
+	 */
 	@WithMockUser(username="1")
 	@Test
 	public void shouldCreateNote() throws Exception {
@@ -78,6 +99,11 @@ public class NoteControllerTest {
 		
 	}
 	
+	/**
+	 * Should update note.
+	 *
+	 * @throws Exception the exception
+	 */
 	@WithMockUser(username="1")
 	@Test
 	public void shouldUpdateNote() throws Exception {
@@ -87,6 +113,11 @@ public class NoteControllerTest {
 		
 	}
 	
+	/**
+	 * Should delete note.
+	 *
+	 * @throws Exception the exception
+	 */
 	@WithMockUser(username="1")
 	@Test
 	public void shouldDeleteNote() throws Exception {
@@ -94,6 +125,11 @@ public class NoteControllerTest {
 				.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/welcome"));
 	}
 	
+	/**
+	 * Should redirect to welcome page with success status.
+	 *
+	 * @throws Exception the exception
+	 */
 	@WithMockUser(username="1")
 	@Test
 	public void shouldRedirectToWelcomePageWithSuccessStatus() throws Exception {
