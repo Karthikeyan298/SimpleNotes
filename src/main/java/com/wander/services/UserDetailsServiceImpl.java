@@ -14,11 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The Class UserDetailsServiceImpl.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
+    
+    /** The user repository. */
     @Autowired
     private UserRepository userRepository;
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) {

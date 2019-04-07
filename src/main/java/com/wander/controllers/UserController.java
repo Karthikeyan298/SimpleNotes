@@ -9,17 +9,26 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
+/**
+ * The Class UserController.
+ */
 @Controller
 public class UserController {
 
+	/** The user service. */
 	@Autowired
 	private UserServiceImpl userService;
 
+	/**
+	 * Registration.
+	 *
+	 * @param flashAttr the flash attr
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/user/register")
 	public String registration(@ModelAttribute("flashAttr") String flashAttr,Model model) {
 		model.addAttribute("userForm", new User());
@@ -27,6 +36,14 @@ public class UserController {
 		return "register";
 	}
 
+	/**
+	 * Registration.
+	 *
+	 * @param userForm the user form
+	 * @param model the model
+	 * @param redir the redir
+	 * @return the string
+	 */
 	@PostMapping("/user/create")
 	public String registration(@ModelAttribute("userForm") User userForm, Model model, RedirectAttributes redir) {
 		model.addAttribute("error", "");
@@ -41,11 +58,23 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Login.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@GetMapping("/login")
 	public String login(Model model) {
 		return "login";
 	}
 
+	/**
+	 * Validate user params.
+	 *
+	 * @param user the user
+	 * @throws InvalidUserDetailsException the invalid user details exception
+	 */
 	public void validateUserParams(User user) throws InvalidUserDetailsException {
 
 		if (user != null) {
