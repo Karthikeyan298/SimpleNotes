@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.wander.entities.Note;
 import com.wander.entities.User;
 import com.wander.exceptions.ResourceNotFoundException;
@@ -45,13 +47,14 @@ public class NoteController {
 	 * @return the string
 	 */
 	@PostMapping(value="/notes/create")
-    public String addNotes(@ModelAttribute("newNote") Note newNote, BindingResult bindingResult) {
+    public String addNotes(@ModelAttribute("newNote") Note newNote, RedirectAttributes redir) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth);
 		String email = auth.getName();
 		log.info("Current user email: {}", email);
-		
-		notesService.addNotes(newNote, email);
+		if (isValidNote(newNote) == "")
+			notesService.addNotes(newNote, email);
+		else
+			redir.addFlashAttribute("flashAttr", isValidNote(newNote));
 		return "redirect:/welcome";		
 	}
 	
@@ -95,7 +98,7 @@ public class NoteController {
 	 * @return the string
 	 */
 	@GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
+    public String welcome(@ModelAttribute("flashAttr") String error, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		log.debug("Current user email {}", email);
@@ -103,9 +106,16 @@ public class NoteController {
 		
     	List<Note> notes = notesService.findByUser(user);
     	model.addAttribute("notes", notes);
+    	model.addAttribute("error", error);
     	
-    	model.addAttribute("appName", "SimpleNotes");
+    	model.addAttribute("username", user.getUsername());
         return "welcome";
     }
+	
+	private String isValidNote(Note note) {
+		if (note.getTitle() == "")
+			return "Title is empty!!!";
+		return "";
+	}
 	
 }
