@@ -147,5 +147,4 @@ public class UserControllerTest {
 	public void regitrationTest() throws Exception {
 		this.mockMvc.perform(get("/user/register")).andExpect(status().is2xxSuccessful());
 	}
-
 }
