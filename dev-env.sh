@@ -1,0 +1,7 @@
+echo export MYSQL_IP="172.17.0.1"
+echo export MYSQL_PORT="3306"
+echo export MYSQL_DB="notes_app"
+echo export MYSQL_USERNAME="root"
+echo export MYSQL_PASSWORD="root@123"
+echo export SPRING_LOG_LEVEL="info"
+echo export APPLICATION_LOG_LEVEL="info"
