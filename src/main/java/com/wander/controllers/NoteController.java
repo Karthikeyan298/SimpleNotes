@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.wander.entities.Note;
 import com.wander.entities.User;
 import com.wander.exceptions.ResourceNotFoundException;
-import com.wander.services.NotesService;
-import com.wander.services.UserService;
+import com.wander.services.NoteServiceImpl;
+import com.wander.services.UserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,10 +25,10 @@ import java.util.List;
 public class NoteController {
 	
 	@Autowired
-	NotesService notesService;
+	NoteServiceImpl notesService;
 	
 	@Autowired
-	UserService userService;
+	UserServiceImpl userService;
 
 	@PostMapping(value="/notes/create")
     public String addNotes(@ModelAttribute("newNote") Note newNote, BindingResult bindingResult) {

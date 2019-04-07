@@ -30,8 +30,8 @@ import org.springframework.web.context.WebApplicationContext;
 import com.wander.controllers.NoteController;
 import com.wander.entities.Note;
 import com.wander.entities.User;
-import com.wander.services.NotesService;
-import com.wander.services.UserService;
+import com.wander.services.NoteServiceImpl;
+import com.wander.services.UserServiceImpl;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,10 +47,10 @@ public class NoteControllerTest {
 	NoteController NoteController;
 
 	@Mock
-	private NotesService noteService;
+	private NoteServiceImpl noteService;
 	
 	@Mock
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@Autowired
 	private WebApplicationContext context;

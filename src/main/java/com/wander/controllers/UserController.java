@@ -2,7 +2,7 @@ package com.wander.controllers;
 
 import com.wander.entities.User;
 import com.wander.exceptions.InvalidUserDetailsException;
-import com.wander.services.UserService;
+import com.wander.services.UserServiceImpl;
 
 import java.util.regex.Pattern;
 
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@GetMapping("/user/register")
 	public String registration(@ModelAttribute("flashAttr") String flashAttr,Model model) {

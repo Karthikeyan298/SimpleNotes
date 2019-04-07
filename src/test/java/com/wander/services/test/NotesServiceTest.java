@@ -12,8 +12,8 @@ import com.wander.entities.Note;
 import com.wander.entities.User;
 import com.wander.exceptions.ResourceNotFoundException;
 import com.wander.repositories.NoteRepository;
-import com.wander.services.NotesService;
-import com.wander.services.UserService;
+import com.wander.services.NoteServiceImpl;
+import com.wander.services.UserServiceImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -26,12 +26,12 @@ import java.util.Optional;
 public class NotesServiceTest {
 
 	@InjectMocks
-	NotesService noteService;
+	NoteServiceImpl noteService;
 
-	NotesService noteServiceSpy;
+	NoteServiceImpl noteServiceSpy;
 
 	@Mock
-	UserService userService;
+	UserServiceImpl userService;
 
 	@Mock
 	NoteRepository noteRepository;
