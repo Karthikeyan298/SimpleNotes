@@ -49,9 +49,7 @@ public class UserServiceImpl implements UserService{
 	 * @see com.wander.services.UserService#saveUser(com.wander.entities.User)
 	 */
 	public void saveUser(User user) {
-		System.out.println(bCryptPasswordEncoder);
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		System.out.println(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleRepository.findAll()));
 		userRepository.save(user);
 	}

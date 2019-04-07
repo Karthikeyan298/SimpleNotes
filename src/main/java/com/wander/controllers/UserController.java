@@ -80,7 +80,7 @@ public class UserController {
 		if (user != null) {
 			if (user.getUsername() == null)
 				throw new InvalidUserDetailsException("Not a valid username");
-			if (user.getPassword().length() < 8 && user.getPassword() != user.getPasswordConfirm())
+			if (user.getPassword().length() < 8)
 				throw new InvalidUserDetailsException("Not a valid password");
 			if (user.getEmail() != null) {
 				String regex = "[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";

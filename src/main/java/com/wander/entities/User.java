@@ -28,10 +28,6 @@ public class User {
 	@Column(name = "password", nullable=false)
 	private String password;
 	
-	/** The password confirm. */
-	@Transient
-    private String passwordConfirm;
-	
 	/** The username. */
 	@Column(name = "username", nullable=false)
 	private String username;
@@ -39,10 +35,9 @@ public class User {
 	/** The roles. */
 	@ManyToMany
     private Set<Role> roles;
-	
 
 	/** The notes. */
 	@OneToMany
 	private Set<Note> notes; 
-
+	
 }
