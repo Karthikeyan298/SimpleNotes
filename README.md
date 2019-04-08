@@ -27,4 +27,4 @@ APPLICATION_LOG_LEVEL=<application_log_level>
  ``` sh
  $ docker run --name simplenotes -d --env-file <env_file_location> --restart always -p 8080:8080 simplenotes:latest
  ```
-  - Now the application started to listen on http://<host>:8080
+  - Now the application started to listen on http://hostname:8080, Change hostname with your IP or hostname.
