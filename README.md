@@ -13,7 +13,7 @@
  $ gradle build
  $ docker build -t simplenotes:latest .
  ```
-  - Create env file
+  - Create env file(eg: notes.env)
   ```
   MYSQL_IP=<mysql_instance_ip>
 MYSQL_PORT=<mysql_port>
