@@ -9,7 +9,7 @@
   - Clone the repository and run the following commands
  ```
  $ git clone https://github.com/Karthikeyan298/SimpleNotes.git
- $ cd SimplNotes/
+ $ cd SimpleNotes/
  $ gradle build
  $ docker build -t simplenotes:latest .
  ```
@@ -27,3 +27,4 @@ APPLICATION_LOG_LEVEL=<application_log_level>
  ``` sh
  $ docker run --name simplenotes -d --env-file <env_file_location> --restart always -p 8080:8080 simplenotes:latest
  ```
+  - Now the application started to listen on http://<host>:8080
