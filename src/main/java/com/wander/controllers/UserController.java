@@ -50,7 +50,8 @@ public class UserController {
 		try {
 			validateUserParams(userForm);
 			userService.saveUser(userForm);
-			return "redirect:/welcome";
+			redir.addFlashAttribute("successMessage", "Registration completed successfully");
+			return "redirect:/login";
 		} catch (InvalidUserDetailsException e) {
 			e.printStackTrace();
 			redir.addFlashAttribute("flashAttr",e.getErrorMsg());
@@ -65,7 +66,8 @@ public class UserController {
 	 * @return the string
 	 */
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login(@ModelAttribute("successMessage") String successMessage, Model model) {
+		model.addAttribute(successMessage);
 		return "login";
 	}
 
