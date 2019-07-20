@@ -28,3 +28,6 @@ APPLICATION_LOG_LEVEL=<application_log_level>
  $ docker run --name simplenotes -d --env-file <env_file_location> --restart always -p 8080:8080 simplenotes:latest
  ```
   - Now the application started to listen on http://hostname:8080, Change hostname with your IP or hostname.
+  
+You can install this application in kubernetes cluster by loading the docker image of simplenotes in all nodes in the cluster and executing the deployment.yaml present under the deploy/ folder.
+$ kubectl create -f deployment.yaml

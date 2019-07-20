@@ -1,0 +1,146 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mysql-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+             secretKeyRef:
+                name: mysql
+                key: password 
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+---
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: mysqlconfigmap 
+data:
+  mysql_ip: "mysql"
+  mysql_db: "simplenotes"
+  mysql_port: "3306"
+  mysql_username: "root"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+   name: simplenotes
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         name: simplenotes
+   template:
+     metadata:
+        labels:
+           name: simplenotes
+           app-name: simplenotes
+     spec:
+         restartPolicy: Always
+         containers:
+         - image: simplenotes:latest
+           imagePullPolicy: Never
+           name: simplenotes
+           ports:
+           - containerPort: 8080
+           env:
+           - name: MYSQL_PASSWORD
+             valueFrom:
+                secretKeyRef:
+                   name: mysql
+                   key: password
+           - name: MYSQL_IP
+             valueFrom: 
+              configMapKeyRef:
+                name: mysqlconfigmap
+                key: mysql_ip
+           - name: MYSQL_DB
+             valueFrom: 
+              configMapKeyRef:
+                name: mysqlconfigmap
+                key: mysql_db
+           - name: MYSQL_PORT
+             valueFrom: 
+              configMapKeyRef:
+                name: mysqlconfigmap
+                key: mysql_port
+           - name: MYSQL_USERNAME
+             valueFrom: 
+              configMapKeyRef:
+                name: mysqlconfigmap
+                key: mysql_username      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simplenotes
+  labels:
+    run: simplenotes
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+  selector:
+     app-name: simplenotes
+  
