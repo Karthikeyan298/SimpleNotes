@@ -21,9 +21,9 @@ jacocoTestReport {
         html.destination file("${buildDir}/jacocoHtml")
     }
     afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
+        classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: 'com/wander/entities/**')
-        })
+        }))
     }
 }
 

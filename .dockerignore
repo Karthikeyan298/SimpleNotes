@@ -1,0 +1,5 @@
+k8s/
+.gitignore
+gradlew
+gradlew.bat
+dev-env.sh
