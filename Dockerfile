@@ -1,7 +1,7 @@
 FROM gradle:6.8.3-jdk8
 RUN mkdir notes-app
 ADD . notes-app/
-WORKDIR notes-app
+WORKDIR notes-app/
 RUN gradle build
 
 FROM java:latest
